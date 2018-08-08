@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= student.name %>></title>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <%- include('./partials/head'); %>
+</head>
+<body>
+<%- include('./partials/header'); %>
+
+<div class="ui huge header centered">
+    <%= student.name %>
+</div>
+<% if(student.message){ %>
+<div class="ui message">
+    <%= student.message %>
+</div>
+<% } %>
+<div class="ui section divider"></div>
+<div class="ui container">
+    <div class="ui header">
+        Room
+    </div>
+    <%= student.room %>
+    <div class="ui header">
+        Floor
+    </div>
+    <%= student.floor %>
+    <div class="ui header">
+        Program
+    </div>
+    <%= student.program %>
+    <div class="ui header">
+        Year
+    </div>
+    <%= student.year %>
+    <div class="ui header">
+        Facebook
+    </div>
+    <a href="https://facebook.com/<%= student.facebook %>"><%= student.facebook %></a>
+
+    <div class="ui header">
+        Instagram
+    </div>
+    <a href="https://instagram.com/<%= student.instagram %>"><%= student.instagram %></a>
+    <div class="ui header">
+        Snap
+    </div>
+    <%= student.snapchat %>
+    <div class="ui header">
+        Roommates
+    </div>
+    <% if(student.roommates){ %>
+    <div class="ui list">
+        <% student.roommates.forEach((roommate)=>{ %>
+        <a class="item" href="/students/<%= roommate.id %>"><%= roommate.name %></a>
+        <% }); %>
+    </div>
+    <% }else{ %>
+    <div class="ui message">
+        No Roommates.
+    </div>
+    <% } %>
+    <div class="ui section divider"></div>
+    <form class="ui form" method="post" action="<%= student.id %>/delete">
+        <div class="field">
+            <input placeholder="Password" type="password" name="password" required>
+        </div>
+        <div class="field">
+            <input type="submit" class="ui button submit negative" value="Delete">
+        </div>
+    </form>
+</div>
+<div class="ui section divider hidden"></div>
+</body>
+
+</html>

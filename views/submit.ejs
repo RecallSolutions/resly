@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Submit Room</title>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <%- include('./partials/head'); %>
+</head>
+<body>
+<%- include('./partials/header'); %>
+
+<div class="ui huge header centered">
+    Submit Profile
+</div>
+<div class="ui message">
+    Remember, anyone with access to this site can see this information.
+    By continuing, you consent to this. <b>Social media information is optional.</b>
+</div>
+<div class="ui section divider"></div>
+<div class="ui centered grid container">
+    <form class="ui form" method="post" action="submit">
+        <div class="equal width fields">
+            <div class="required field">
+                <label>Name</label>
+                <input placeholder="Full Name" name="name" required>
+            </div>
+            <div class="required field">
+                <label>Floor</label>
+                <select class="ui dropdown" name="floor" required>
+                    <% for(let floor = 1; floor <= 30; floor++){ %>
+                    <option value="<%= floor %>"><%= floor %></option>
+                    <% } %>
+                </select>
+            </div>
+            <div class="required field">
+                <label>Room</label>
+                <select class="ui dropdown" name="room" required>
+                    <% for(let room = 1; room <= 60; room++){ %>
+                    <option value="<%= room %>"><%= room %></option>
+                    <% } %>
+                </select>
+            </div>
+        </div>
+        <div class="two fields">
+            <div class="required field">
+                <label>Program</label>
+                <input placeholder="Program" name="program" required>
+            </div>
+            <div class="required field">
+                <label>Year</label>
+                <input placeholder="Year" name="year" type="number" min="1" max="4" value="1" required>
+            </div>
+        </div>
+        <div class="one equal width fields">
+            <div class="required field">
+                <label>Password</label>
+                <input placeholder="This will be used to delete your profile" type="password" name="password" required>
+            </div>
+        </div>
+        <div class="three equal width fields">
+            <div class="field">
+                <label>Facebook</label>
+                <input placeholder="Facebook ID" name="facebook">
+            </div>
+            <div class="field">
+                <label>
+                    Instagram
+                </label>
+                <input placeholder="Username" name="instagram"/>
+            </div>
+            <div class="field">
+                <label>
+                    Snap
+                </label>
+                <input placeholder="Username" name="snapchat"/>
+            </div>
+        </div>
+        <div class="one equal width fields">
+            <div class="field">
+                <label>
+                    Message
+                </label>
+                <input placeholder="Anything you wanna tell other students? Now's your chance!" name="message"/>
+            </div>
+        </div>
+        <input type="submit" class="ui submit primary button"/>
+    </form>
+</div>
+<div class="ui divider hidden section"></div>
+</body>
+
+</html>

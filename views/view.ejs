@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View</title>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <%- include('./partials/head'); %>
+</head>
+<body>
+<%- include('./partials/header'); %>
+
+<div class="ui huge header centered">
+    Floor <%= floor || 1 %>
+</div>
+<div class="ui container">
+    <form class="ui centered form" action="view" method="get">
+        <div class="two fields">
+            <div class="field">
+                <label>Floor</label>
+                <input name="floor" type="number" min="1" max="26" value="<%= floor || 1 %>" required/>
+            </div>
+            <div class="field">
+                <label>Search</label>
+                <input name="search" placeholder="Search for anything! Names, programs, or just leave it blank."
+                       value="<%= search %>"/>
+            </div>
+        </div>
+        <div class="field">
+            <input type="submit" class="ui primary submit button" value="View"/>
+        </div>
+    </form>
+</div>
+<div class="ui section divider"></div>
+<div class="ui cards container">
+    <% rooms.forEach((room) => { %>
+    <div class="ui card">
+        <div class="content">
+            <div class="header">
+                <%= room.number %>
+            </div>
+            <div class="description ui list">
+                <% room.people.forEach((person) =>{ %>
+                <a
+                        class="item"
+                        href="students/<%- person.id %>"
+                >
+                    <%= person.name %> <%= person.program ? ' - ' + person.program : '' %></a>
+                <% }); %>
+            </div>
+        </div>
+    </div>
+    <% }); %>
+</div>
+</body>
+
+</html>
