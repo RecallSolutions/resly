@@ -16,7 +16,7 @@ router.post('/', function(req, res, next) {
         res.cookie('token', token);
         res.redirect('view');
     }else{
-        res.render('index', {invalid: true})
+        res.render('index', {invalid: true, isLoggedIn: false})
     }
 });
 
