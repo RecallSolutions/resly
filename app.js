@@ -31,6 +31,8 @@ app.use('/students', protection, studentsRouter);
 
 
 function protection(req, res, next) {
+    console.dir(req.cookies);
+    console.dir(isLoggedIn(req));
     if (isLoggedIn(req)) {
         next()
     } else {
