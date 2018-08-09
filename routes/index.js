@@ -24,7 +24,7 @@ function isLoggedIn(req) {
     if (req.cookies && req.cookies.token) {
         try {
             const decoded = jwt.decode(req.cookies.token, process.env.SECRET);
-            if (decoded && decoded.password && decoded.password == process.env.password) {
+            if (decoded && decoded.password && decoded.password == process.env.PASSWORD) {
                 return true;
             } else {
                 return false;
