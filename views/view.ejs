@@ -9,7 +9,11 @@
 <%- include('./partials/header'); %>
 
 <div class="ui huge header centered">
+    <% if(anyFloor){ %>
+    Any Floor
+    <% }else{ %>
     Floor <%= floor || 1 %>
+    <% } %>
 </div>
 <div class="ui container">
     <form class="ui centered form" action="view" method="get">
@@ -25,6 +29,12 @@
             </div>
         </div>
         <div class="field">
+            <label>Any Floor</label>
+            <input type="checkbox" name="anyFloor" <% if(anyFloor){ %>checked
+                    <% } %>
+            />
+        </div>
+        <div class="field">
             <input type="submit" class="ui primary submit button" value="View"/>
         </div>
     </form>
@@ -35,6 +45,9 @@
     <div class="ui card">
         <div class="content">
             <div class="header">
+                <% if(anyFloor){ %>
+                Floor <%= room.floor %> -
+                <% } %>
                 Room <%= room.number %>
             </div>
             <div class="description ui list">

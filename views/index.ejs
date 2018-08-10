@@ -10,7 +10,19 @@
 
 <% if(!isLoggedIn){ %>
 <div class="ui huge header centered" href="/">
-    What's the password?
+    Nice to meet you!
+</div>
+<div class="ui message">
+    <div class="header">
+        For your security
+    </div>
+    <p>
+        In the interest of protecting your privacy, Resly now requires you to make an account with your UofT email
+        address.
+        If you have already made a profile, <b>it will not be affected</b>, but viewing it and other students will
+        require an account.
+        If you have any concerns or questions, please contact <b>rezlysys@gmail.com.</b>
+    </p>
 </div>
 <form class="ui form container" method="post">
     <% if(invalid){ %>
@@ -18,11 +30,29 @@
         Sorry, that is incorrect.
     </div>
     <% } %>
+    <% if(conflict){ %>
+    <div class="ui message negative">
+        Sorry, that email address is already in use.
+    </div>
+    <% } %>
     <div class="field">
-        <input placeholder="Enter the group password" type="password" name="password"/>
+        <div class="ui right labeled input">
+            <input type="text" name="email" placeholder="Enter your UofT email address.">
+            <div class="ui label">
+                @mail.utoronto.ca
+            </div>
+        </div>
     </div>
     <div class="field">
-        <input class="ui button primary submit" type="submit" value="Enter">
+        <input placeholder="Enter a unique password" type="password" name="password"/>
+    </div>
+    <div class="two fields">
+        <div class="field">
+            <input name="submit" class="ui button submit" type="submit" value="Register">
+        </div>
+        <div class="field">
+            <input name="submit" class="ui button primary submit" type="submit" value="Login">
+        </div>
     </div>
 </form>
 <% }else{ %>

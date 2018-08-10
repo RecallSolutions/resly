@@ -19,6 +19,7 @@ router.post('/', async (req, res, next) => {
         program,
         year
     } = req.body;
+    const email = req.user.email;
     await db.query`
     INSERT INTO
       students(
@@ -31,7 +32,8 @@ router.post('/', async (req, res, next) => {
       snapchat,
       message,
       program,
-      year)
+      year,
+      email)
     VALUES(
     ${name},
     ${floor},
@@ -42,7 +44,8 @@ router.post('/', async (req, res, next) => {
     ${snapchat},
     ${message},
     ${program},
-    ${year}
+    ${year},
+    ${email}
     )
   `;
     res.render('student_added');

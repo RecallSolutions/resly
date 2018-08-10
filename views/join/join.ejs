@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email Sent</title>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <%- include('../partials/head'); %>
+</head>
+<body>
+<%- include('../partials/header'); %>
+
+<div class="ui huge header centered">
+    One last step!
+</div>
+<div class="ui section divider"></div>
+<div class="ui message">
+    <div class="header">
+        Why so many steps?
+    </div>
+    <p>
+        Resly's main goal is to <b>protect your privacy.</b>
+        Each step adds a layer of security and guards your information.
+        Please enter the unique <b>group password</b>, which is <b>not your personal password</b>.
+        You got this wherever you heard about Resly, and only need to use it this one time.
+
+        <b>This is the last step!</b>
+    </p>
+</div>
+<form class="ui form container" method="post">
+    <% if(invalid){ %>
+    <div class="ui message negative">
+        Sorry, that is incorrect.
+    </div>
+    <% } %>
+    <div class="field">
+        <input name="password" type="password" placeholder="Group Password" required/>
+    </div>
+    <div class="field">
+        <input class="ui button primary submit" type="submit" value="Join">
+    </div>
+</form>
+</body>
+
+</html>
