@@ -3,10 +3,12 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const jwt = require('jwt-simple')
+const jwt = require('jwt-simple');
+const db = require('simple-postgres')
 
 var indexRouter = require('./routes/index');
 var logoutRouter = require('./routes/logout');
+var joinRouter = require('./routes/join');
 var studentsRouter = require('./routes/students');
 var submitRouter = require('./routes/submit');
 var viewRouter = require('./routes/view');
@@ -25,14 +27,34 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/logout', logoutRouter);
+app.use('/join', protection, joinRouter);
 app.use('/submit', protection, submitRouter);
 app.use('/view', protection, viewRouter);
 app.use('/students', protection, studentsRouter);
 
 
-function protection(req, res, next) {
+async function protection(req, res, next) {
     if (isLoggedIn(req)) {
-        next()
+        const status = await db.row`
+            SELECT
+                confirmed,
+                joined
+            FROM
+                users
+            WHERE
+                email = ${req.user.email}
+        `;
+        if (status.confirmed && status.joined) {
+            next();
+        } else if (status.confirmed) {
+            if (req.baseUrl != '/join') {
+                res.redirect('join');
+            } else {
+                next()
+            }
+        } else {
+            res.render('register/register_email_sent');
+        }
     } else {
         res.clearCookie('token');
         res.redirect('/');
@@ -43,7 +65,8 @@ function isLoggedIn(req) {
     if (req.cookies && req.cookies.token) {
         try {
             const decoded = jwt.decode(req.cookies.token, process.env.SECRET);
-            if (decoded && decoded.password && decoded.password == process.env.PASSWORD) {
+            if (decoded && decoded.email) {
+                req['user'] = {email: decoded.email}
                 return true;
             } else {
                 return false;
